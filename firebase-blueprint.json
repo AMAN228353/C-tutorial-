@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile and learning preferences",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "preferredLanguage": { "type": "string", "enum": ["en", "hi", "hinglish"] },
+        "currentLevel": { "type": "string", "enum": ["beginner", "intermediate", "advanced"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "preferredLanguage", "currentLevel"]
+    },
+    "LessonProgress": {
+      "title": "LessonProgress",
+      "description": "User completion and progress for an individual C curriculum lesson",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "lessonId": { "type": "string", "maxLength": 128 },
+        "completed": { "type": "boolean" },
+        "completedAt": { "type": "string" },
+        "lastViewedAt": { "type": "string" }
+      },
+      "required": ["userId", "lessonId", "completed"]
+    },
+    "QuizAttempt": {
+      "title": "QuizAttempt",
+      "description": "Record of a completed quiz or practice session",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "topicId": { "type": "string", "maxLength": 128 },
+        "score": { "type": "number" },
+        "totalQuestions": { "type": "number" },
+        "accuracy": { "type": "number" },
+        "mode": { "type": "string", "enum": ["topic", "mixed", "revision", "advanced"] },
+        "attemptedAt": { "type": "string" }
+      },
+      "required": ["userId", "topicId", "score", "totalQuestions", "accuracy", "mode"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "Saved lesson or code snippet for quick revision",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "lessonId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 256 },
+        "topicTitle": { "type": "string", "maxLength": 256 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "lessonId", "title"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Private user profile settings and preferences"
+    },
+    "/users/{userId}/progress/{lessonId}": {
+      "schema": "LessonProgress",
+      "description": "Tracks completed lessons per user"
+    },
+    "/users/{userId}/quizAttempts/{attemptId}": {
+      "schema": "QuizAttempt",
+      "description": "History of quiz tests and performance metrics"
+    },
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": "Bookmark",
+      "description": "Saved bookmarks for lessons and code snippets"
+    }
+  }
+}

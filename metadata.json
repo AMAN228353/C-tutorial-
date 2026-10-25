@@ -1,0 +1,6 @@
+{
+  "name": "C Tutor AI",
+  "description": "Interactive C programming education platform with structured curriculum, AI teacher in Hinglish/Hindi/English, step-by-step traces, quizzes, and code lab.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
